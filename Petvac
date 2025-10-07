@@ -1,0 +1,51 @@
+[ENABLE]
+alloc(xiugai, 1000, 140000000)
+define(baseAddr,147C98960)
+alloc(timer, 8)
+alloc(wupinX, 8)
+alloc(wupinY, 8)
+define(attackPlayer,baseAddr+8)
+define(petLootFlag,baseAddr+40)
+label(CWfanhui)
+ 
+xiugai:
+call 14029CAF0
+cmp [petLootFlag], 6
+jne CWfanhui
+push rax
+mov eax, [rax+8]
+cmp eax, [attackPlayer]
+ja CWfanhui
+mov [wupinX], esi
+mov [wupinY], eax
+call GetTickCount
+mov edx, eax
+sub edx, [timer]
+cmp edx, #10
+jl CWfanhui
+mov [timer], eax
+mov rcx, [rbp+10]
+mov rdx, [rcx+08]
+lea rcx, [rcx+08]
+call qword ptr[rdx+50]
+test rax, rax
+je CWfanhui
+sub rsp, 28
+mov rcx, rax
+mov r9d, [wupinY]
+sub r9d, #3
+mov r8d, [wupinX]
+mov rcx, rax
+add rsp, 28
+ 
+CWfanhui:
+jmp 141F986BC+5
+jmp xiugai
+ 
+[DISABLE]
+141F986BC:
+call 14029CAF0
+dealloc(xiugai)
+dealloc(timer)
+dealloc(wupinX)
+dealloc(wupinY)
