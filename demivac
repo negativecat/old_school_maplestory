@@ -1,0 +1,45 @@
+[ENABLE]
+// Demi Vac
+registersymbol(DemiX)
+registersymbol(DemiY)
+alloc(DemiX,64)
+alloc(DemiY,128)
+DemiX:
+mov edx,[773E7C]
+lea edx,[edx+390]
+mov ecx,[edx]
+jmp DemiY
+DemiY:
+mov edx,[773E7C]
+lea edx,[edx+394]
+lea eax,[edx]
+mov eax,[eax]
+jmp 00517A43
+//ItemVac
+registersymbol(ItemVac)
+alloc(ItemVac, 1024)
+ItemVac:
+pushad
+mov ecx, [ebp+8]
+mov ebx, [ebp-24]
+mov [ecx], ebx
+mov [ecx+4], eax
+mov ecx, eax
+mov eax, ebx
+lea edx, [eax-19]
+mov [ebp-34], edx
+lea edx, [ecx-32]
+add eax, 19
+add ecx, A
+mov [ebp-30], edx
+mov [ebp-2C], eax
+mov [ebp-28], ecx
+popad
+push eax
+jmp 0048ED03
+[DISABLE]
+unregistersymbol(DemiX)
+unregistersymbol(DemiY)
+dealloc(DemiX,64)
+dealloc(DemiY,128)
+dealloc(ItemVac)
